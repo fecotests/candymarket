@@ -8,7 +8,7 @@ function loadPage() {
         `
             <h1>Candy Market - Raktárkészlet</h1>
 
-            <a href="/ujsor" id="newitem">
+            <a href="ujsor/" id="newitem">
                 <button type="button">Új termék</button>
             </a>
 
