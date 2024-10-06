@@ -8,15 +8,16 @@ function loadPage() {
         `
             <h1>Candy Market - Raktárkészlet</h1>
 
-            <a href="ujsor/" id="newitem">
+            <a href="ujsor" id="newitem">
                 <button type="button">Új termék</button>
             </a>
 
             <table>
                 <thead>
                     <tr>
-                        <th width="75%">Termék neve</th>
-                        <th colspan="2">Szavatosság</th>
+                        <th width="60%">Termék neve</th>
+                        <th width="20%">Ára</th>
+                        <th width="20%" colspan="2">Szavatosság</th>
                     </tr>
                 </thead>
                 <tbody id="items">
@@ -99,6 +100,7 @@ function generateTableRow(obj) {
     `
         <tr>
             <td>${obj.name}</td>
+            <td>${obj.price} Ft</td>
             <td class="${className}">${obj.expire.replaceAll("-", ".")}.</td>
             <td id="${obj.id}" class="deleterow" onclick="deleteRow(${obj.id}, '${obj.name}')" width="25px">X</tr>
         </tr>

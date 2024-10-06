@@ -8,6 +8,8 @@ function loadPage() {
             
             <input type="text" id="itemname" placeholder="Termék neve">
 
+            <input type="number" id="itemprice" placeholder="Termék ára">
+
             <input type="date" id="itemexpire">
 
             <button type="button" onclick="addrow()">Termék felvétele</button>
@@ -36,6 +38,7 @@ function addrow() {
     if (auth) {
         let userdata = localStorage.getItem("data").split(":");
         let itemname = document.getElementById("itemname").value;
+        let itemprice = parseInt(document.getElementById("itemprice").value);
         let itemexpire = document.getElementById("itemexpire").value;
 
         fetch("https://api.f5api.xyz/api/v1/newitem", {
@@ -45,6 +48,7 @@ function addrow() {
                 "username": userdata[1],
                 "password": userdata[0],
                 "itemname": itemname,
+                "itemprice": itemprice,
                 "itemexpire": itemexpire
             })
         })
@@ -52,6 +56,7 @@ function addrow() {
         .then(data => {
             if (data.status == 200) {
                 alert("Sikeres felvétel!");
+                window.location.reload();
             } else {
                 alert("Sikertelen felvétel!");
             }
