@@ -16,7 +16,7 @@ function login() {
     let un = document.getElementById("username").value;
     let pw = document.getElementById("password").value;
 
-    fetch("https://api.f5api.xyz/api/v1/login", {
+    fetch("https://f5api.mysrv.us/api/v1/login", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -27,7 +27,7 @@ function loadPage() {
         `;
         let userdata = localStorage.getItem("data").split(":");
 
-        fetch("https://api.f5api.xyz/api/v1/items", {
+        fetch("https://f5api.mysrv.us/api/v1/items", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -62,7 +62,7 @@ function deleteRow(id, name) {
         if (conf) {
             let userdata = localStorage.getItem("data").split(":");
 
-            fetch("https://api.f5api.xyz/api/v1/deleteitem", {
+            fetch("https://f5api.mysrv.us/api/v1/deleteitem", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
