@@ -42,7 +42,7 @@ function loadPage() {
         `;
         let userdata = localStorage.getItem("data").split(":");
 
-        fetch("https://f5api.mysrv.us/api/v1/items", {
+        fetch("https://api.fecooo.hu/api/v1/cm/items", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -113,7 +113,7 @@ function modifyRow() {
             let editRowPrice = document.getElementById("editRowPrice").value;
             let editRowExpire = document.getElementById("editRowExpire").value;
 
-            fetch("https://f5api.mysrv.us/api/v1/modifyitem", {
+            fetch("https://api.fecooo.hu/api/v1/cm/modifyitem", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -153,7 +153,7 @@ function deleteRow(id, name) {
         if (conf) {
             let userdata = localStorage.getItem("data").split(":");
 
-            fetch("https://f5api.mysrv.us/api/v1/deleteitem", {
+            fetch("https://api.fecooo.hu/api/v1/cm/deleteitem", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

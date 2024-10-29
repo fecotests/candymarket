@@ -41,7 +41,7 @@ function addrow() {
         let itemprice = parseInt(document.getElementById("itemprice").value);
         let itemexpire = document.getElementById("itemexpire").value;
 
-        fetch("https://f5api.mysrv.us/api/v1/newitem", {
+        fetch("https://api.fecooo.hu/api/v1/cm/newitem", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
