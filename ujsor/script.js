@@ -26,7 +26,7 @@ function loadPage() {
         dateInput.setAttribute("min", todayDate.toISOString().split("T")[0]);
     } else {
         //window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/";
-        window.location.href = window.location.protocol + "//" + window.location.hostname + "/candymarket";    
+        window.location.href = window.location.protocol + "//" + window.location.hostname + "/";    
     }
 }
 
