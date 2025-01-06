@@ -59,6 +59,14 @@ h1 {
     text-transform: lowercase;
 }
 
+h2 {
+    color: black;
+    text-align: center;
+}
+#productsCount {
+    color: whitesmoke;
+}
+
 table {
     width: 90%;
     margin: auto;

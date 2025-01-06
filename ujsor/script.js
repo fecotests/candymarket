@@ -36,7 +36,7 @@ function addrow() {
     let auth = localStorage.getItem("authenticated") ? true : false;
 
     if (auth) {
-        let userdata = localStorage.getItem("data").split(":");
+        let userdata = localStorage.getItem("data");
         let itemname = document.getElementById("itemname").value;
         let itemprice = parseInt(document.getElementById("itemprice").value);
         let itemexpire = document.getElementById("itemexpire").value;
@@ -45,8 +45,7 @@ function addrow() {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                "username": userdata[1],
-                "password": userdata[0],
+                "user": userdata,
                 "itemname": itemname,
                 "itemprice": itemprice,
                 "itemexpire": itemexpire

@@ -20,8 +20,7 @@ function login() {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            "username": un,
-            "password": pw
+            "user": btoa(`${un}:${pw}`)
         })
     })
     .then(res => res.json())
@@ -29,9 +28,10 @@ function login() {
         if (data) {
             if (data.status == 200) {
                 localStorage.setItem("authenticated", true);
-                localStorage.setItem("data", `${pw}:${un}`);
+                // localStorage.setItem("data", `${pw}:${un}`);
+                localStorage.setItem("data", btoa(`${un}:${pw}`));
                 //window.location.href = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/";
-        window.location.href = window.location.protocol + "//" + window.location.hostname + "/";
+                window.location.href = window.location.protocol + "//" + window.location.hostname + "/";
             } else {
                 localStorage.setItem("authenticated", false);
             }

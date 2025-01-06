@@ -27,6 +27,8 @@ function loadPage() {
 
             <input type="text" id="searchBar" placeholder="Keresés" oninput="updateRows()">
 
+            <h2>Termékek száma: <span id="productsCount"></span></h2>
+
             <table>
                 <thead>
                     <tr>
@@ -40,20 +42,20 @@ function loadPage() {
                 </tbody>
             </table>
         `;
-        let userdata = localStorage.getItem("data").split(":");
+        let userdata = localStorage.getItem("data");
 
         fetch("https://api.fecooo.hu/api/v1/cm/items", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                "username": userdata[1],
-                "password": userdata[0]
+                "user": userdata
             })
         })
         .then(res => res.json())
         .then(data => {
             if (data.status == 200) {
                 data.items.filter(x => x.id != 0).forEach(item => {
+                    document.getElementById("productsCount").innerHTML = data.items.length
                     generateTableRow(item);
                 });
                 APIData = data;
@@ -67,6 +69,7 @@ function loadPage() {
 }
 
 loadPage();
+
 
 function updateRows() {
     clearRows();
@@ -107,7 +110,7 @@ function modifyRow() {
         let conf = confirm(`Biztos vagy a ${element.name} termék módosításában?`);
 
         if (conf) {
-            let userdata = localStorage.getItem("data").split(":");
+            let userdata = localStorage.getItem("data");
 
             let editRowName = document.getElementById("editRowName").value;
             let editRowPrice = document.getElementById("editRowPrice").value;
@@ -117,8 +120,7 @@ function modifyRow() {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    "username": userdata[1],
-                    "password": userdata[0],
+                    "user": userdata,
                     "itemid": parseInt(selectedItemId),
                     "itemname": editRowName,
                     "itemprice": parseInt(editRowPrice),
@@ -151,14 +153,13 @@ function deleteRow(id, name) {
         let conf = confirm(`Biztos vagy a ${name} termék törlésében?`);
 
         if (conf) {
-            let userdata = localStorage.getItem("data").split(":");
+            let userdata = localStorage.getItem("data");
 
             fetch("https://api.fecooo.hu/api/v1/cm/deleteitem", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    "username": userdata[1],
-                    "password": userdata[0],
+                    "user": userdata,
                     "itemid": parseInt(id)
                 })
             })
