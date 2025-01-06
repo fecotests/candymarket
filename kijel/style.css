@@ -1,0 +1,10 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    background-image: linear-gradient(to right bottom, #00a3ff, #0092ff, #0080ff, #0e6aff, #4a50fb, #ab38e3, #df18c4, #ff00a3, #ff3975, #ff7946, #ffb30c, #ffe700);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
