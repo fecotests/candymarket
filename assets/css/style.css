@@ -100,6 +100,18 @@ tr:nth-child(even) {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
+#loadMoreBtn {
+    padding: .7rem 2rem;
+    background-image: linear-gradient(to left bottom, #00a3ff, #ab38e3, #df18c4, #ffe700);;
+    border: none;
+    color: #FFF;
+    margin: 20px auto;
+    display: block;
+    font-size: 1.1rem;
+    cursor: pointer;
+    outline: none;
+}
+
 #newitem {
     text-align: center;
     margin: auto;

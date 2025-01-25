@@ -3,6 +3,11 @@ let todayDate = new Date();
 
 let selectedItemId = -1;
 
+let currentIndex = 0;
+let itemsPerStep = 50;
+let loadedIDs = [];
+
+
 function loadPage() {
     let auth = localStorage.getItem("authenticated") ? true : false;
 
@@ -25,7 +30,7 @@ function loadPage() {
                 <button type="button" onclick="modifyRow()">Módosít</button>
             </div>
 
-            <input type="text" id="searchBar" placeholder="Keresés" oninput="updateRows()">
+            <input type="text" id="searchBar" placeholder="Keresés" oninput="searchBarChanged()">
 
             <h2>Termékek száma: <span id="productsCount"></span></h2>
 
@@ -41,6 +46,8 @@ function loadPage() {
 
                 </tbody>
             </table>
+
+            <button type="button" id="loadMoreBtn" onclick="loadMore()">Több Betöltése</button>
         `;
         let userdata = localStorage.getItem("data");
 
@@ -54,11 +61,8 @@ function loadPage() {
         .then(res => res.json())
         .then(data => {
             if (data.status == 200) {
-                data.items.filter(x => x.id != 0).forEach(item => {
-                    document.getElementById("productsCount").innerHTML = data.items.length
-                    generateTableRow(item);
-                });
                 APIData = data;
+                updateRows(clear=true)
             } else {
                 return;
             }
@@ -68,21 +72,13 @@ function loadPage() {
     }
 }
 
+
 loadPage();
-
-
-function updateRows() {
-    clearRows();
-    let searchBarValue = document.getElementById("searchBar").value.toLowerCase().trim();
-
-    APIData.items.filter(x => x.id != 0 && (x.name.toLowerCase().includes(searchBarValue) || `${x.price}`.includes(searchBarValue))).forEach(item => {
-        generateTableRow(item);
-    });
-}
 
 
 function clearRows() {
     let rows = document.getElementById("items");
+
     while (rows.firstChild) {
         rows.removeChild(rows.lastChild);
     }
@@ -197,4 +193,63 @@ function generateTableRow(obj) {
             <td class="deleterow" onclick="deleteRow(${obj.id}, '${obj.name}')" width="30px">X</tr>
         </tr>
     `;
+}
+
+
+
+function loadTracks(data) {
+    let loadMoreBtn = document.getElementById("loadMoreBtn");
+    document.getElementById("productsCount").innerHTML = `${data.length}`;
+
+    let items = data;
+
+    let startIndex = currentIndex;
+    let endIndex = currentIndex + itemsPerStep;
+    let itemsSlice = items.slice(startIndex, endIndex);
+
+    itemsSlice.forEach(item => {
+        generateTableRow(item);
+
+        loadedIDs.push(item.id);
+    });
+
+    if (loadedIDs.length == data.length) {
+        loadMoreBtn.style.display = "none";
+    }
+
+    currentIndex += itemsPerStep;
+}
+
+
+
+function loadMore() {
+    updateRows(clear=false);
+}
+
+
+function updateRows(clear) {
+    if (clear) {
+        currentIndex = 0;
+        loadedIDs = [];
+        document.getElementById("loadMoreBtn").style.display = "block";
+    }
+
+    let items = APIData.items;
+
+    let searchtext = document.getElementById("searchBar").value;
+    let filteredItems;
+
+    filteredItems = filterBySearchBar(items, searchtext);
+
+    if (clear) { clearRows(); }
+
+    loadTracks(filteredItems);
+}
+
+function filterBySearchBar(items, searchBarValue) {
+    return items.filter(x => x.id != 0 && (x.name.toLowerCase().includes(searchBarValue) || `${x.price}`.includes(searchBarValue)));
+}
+
+function searchBarChanged() {
+    updateRows(clear=true);
 }
