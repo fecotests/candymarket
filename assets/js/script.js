@@ -197,7 +197,7 @@ function generateTableRow(obj) {
 
 
 
-function loadTracks(data) {
+function loadRows(data) {
     let loadMoreBtn = document.getElementById("loadMoreBtn");
     document.getElementById("productsCount").innerHTML = `${data.length}`;
 
@@ -236,14 +236,14 @@ function updateRows(clear) {
 
     let items = APIData.items;
 
-    let searchtext = document.getElementById("searchBar").value;
+    let searchtext = document.getElementById("searchBar").value.toLowerCase();
     let filteredItems;
 
     filteredItems = filterBySearchBar(items, searchtext);
 
     if (clear) { clearRows(); }
 
-    loadTracks(filteredItems);
+    loadRows(filteredItems);
 }
 
 function filterBySearchBar(items, searchBarValue) {
